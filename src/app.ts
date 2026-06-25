@@ -8,6 +8,7 @@ import apiRouter from "./routes.js";
 import logger from "./config/logger.js";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger.js";
+import { honeypotMiddleware } from "./middlewares/honeypot.js";
 const app = express();
 
 /**
@@ -38,6 +39,7 @@ app.use(
 
 // Apply your real-time IP blacklisting check (FIXED METHOD CALL HERE)
 app.use(ipBanMiddleware);
+app.use(honeypotMiddleware);
 
 // Apply your cluster-synchronized rate limiter
 app.use("/api/", globalRateLimiter);

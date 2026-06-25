@@ -42,3 +42,19 @@ export const ipBanMiddleware = async (
   // IP is clean, pass control to the next middleware or controller
   next();
 };
+
+export const autoBanIP = async (ip: string, reason: string): Promise<void> => {
+  try {
+    // Add the IP to the Redis Set
+    await redisClient.sAdd("banned_ips", ip);
+
+    // Optional: Set an expiration so the ban isn't permanent (e.g., ban for 24 hours = 86400 seconds)
+    // Redis Sets don't support per-item TTL natively, but you can store a separate key if you want temporary bans.
+
+    logger.error(
+      `[AUTOMATED FIREWALL BAN]: Permanently blacklisted IP [${ip}]. Reason: ${reason}`,
+    );
+  } catch (error) {
+    logger.error(`Failed to automatically ban IP ${ip}:`, error);
+  }
+};
