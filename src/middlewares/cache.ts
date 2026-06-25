@@ -13,7 +13,7 @@ export const cacheMiddleware = (ttl: number = 300) => {
     next: NextFunction,
   ): Promise<void> => {
     // Only intercept safe read operations
-    if (req.method !== "GET") {
+    if (req.method !== "GET" || ttl <= 0) {
       return next();
     }
 
