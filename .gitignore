@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+# .env
+# .env.*
+# !.env.example
+
+# Databases
+*.db
+*.db-shm
+*.db-wal
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Misc
+.tmp
+.cache
+.vscode/
+.idea/
